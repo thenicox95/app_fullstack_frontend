@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { axiosConfig } from "../../utils/axiosConfig";
 import { useState } from "react";
 import "./ComponentsCss/Auth.css";
+import { yupResolver } from "@hookform/resolvers/yup";
+import updateRutaSchema from "./Validations/updateRutaSchema";
 
 const FormularioUpdateRuta = ({
   ruta,
@@ -20,7 +22,8 @@ const FormularioUpdateRuta = ({
   } = useForm({
     defaultValues: {
       nombre: ruta.nombre
-    }
+    },
+    resolver: yupResolver(updateRutaSchema)
   });
 
   const actualizarRuta = async (data) => {
@@ -70,13 +73,7 @@ const FormularioUpdateRuta = ({
               id="nombre"
               className="input"
               placeholder="Ingresá el nombre de la ruta"
-              {...register("nombre", {
-                required: "El nombre es obligatorio.",
-                minLength: {
-                  value: 3,
-                  message: "El nombre debe tener al menos 3 caracteres."
-                }
-              })}
+              {...register("nombre")}
             />
 
             {errors.nombre && (
