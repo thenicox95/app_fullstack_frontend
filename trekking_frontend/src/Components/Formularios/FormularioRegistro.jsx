@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router";
 import { axiosConfig } from "../../utils/axiosConfig";
 import { useDispatch } from "react-redux";
 import { setUsuario } from "../../store/slices/authSlice";
+import toast from 'react-hot-toast';
 
 const FormularioRegistro = () => {
 
@@ -31,7 +32,7 @@ const FormularioRegistro = () => {
 
     //Le hacemos destructuring al array que nos devuelve useState y ponemos como valor por defecto false.
     const [showPassword, setShowPassword] = useState(false)
-    const [errorRegistro, setErrorRegistro] = useState(null); //Estado para manejar el error de registro.
+    // const [errorRegistro, setErrorRegistro] = useState(null); //Estado para manejar el error de registro.
     const [loading, setLoading] = useState(false); //Estado para manejar el loading del formulario.
     const navigate = useNavigate();
 
@@ -39,7 +40,7 @@ const FormularioRegistro = () => {
     const onSubmit = async (data) => {
 
         setLoading(true);
-        setErrorRegistro(null); //Ponemos el error en null para que no se muestre el mensaje de error anterior.
+        // setErrorRegistro(null); //Ponemos el error en null para que no se muestre el mensaje de error anterior.
 
         try {
             //Sacamos el dato del confirm password a la informacion que vamos a enviar.
@@ -73,14 +74,15 @@ const FormularioRegistro = () => {
 
             reset();
             navigate("/dashboard");
+            toast.success("Registrado y logeado exitosamente.")
 
         } catch (error) {
+            toast.error(error.response?.data?.message || "Ocurrió un error al registrar el usuario.")
+            // const mensajeError =
+            //     error.response?.data?.message ||
+            //     "Ocurrió un error al registrar el usuario.";
 
-            const mensajeError =
-                error.response?.data?.message ||
-                "Ocurrió un error al registrar el usuario.";
-
-            setErrorRegistro(mensajeError);
+            // setErrorRegistro(mensajeError);
         } finally {
             setLoading(false); //Ponemos el loading en false para ocultar el spinner.
         }
@@ -92,11 +94,11 @@ const FormularioRegistro = () => {
             <div className="container">
                 <h1 className="title">Registro de persona</h1>
                 {/* Muestra el mensaje devuelto por el Backend si la petición falla */}
-                {errorRegistro && (
+                {/* {errorRegistro && (
                     <p className="error" style={{ textAlign: "center", marginBottom: "1rem" }}>
                         {errorRegistro}
                     </p>
-                )}
+                )} */}
                 <div className="inputGroup">
                     <label className="label">Nombre:</label>
                     <Controller

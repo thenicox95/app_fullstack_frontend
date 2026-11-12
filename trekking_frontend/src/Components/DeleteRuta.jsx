@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { axiosConfig } from "../utils/axiosConfig";
+import toast from 'react-hot-toast';
 
 const DeleteRuta = ({ id, onRutaEliminada }) => {
 
     const token = useSelector((state) => state.auth.token);
 
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
+    // const [error, setError] = useState("");
 
     const eliminarRuta = async () => {
 
@@ -17,7 +18,7 @@ const DeleteRuta = ({ id, onRutaEliminada }) => {
 
         try {
             setLoading(true);
-            setError("");
+            // setError("");
 
             await axiosConfig.delete(`/v1/rutas/${id}`, {
                 headers: {
@@ -26,11 +27,13 @@ const DeleteRuta = ({ id, onRutaEliminada }) => {
             });
 
             onRutaEliminada(id);
+            toast.success("Ruta eliminada con éxito.")
 
         } catch (error) {
-            setError(
-                error.response?.data?.message || "No se pudo eliminar la ruta."
-            );
+            // setError(
+            //     error.response?.data?.message || "No se pudo eliminar la ruta."
+            // );
+            toast.error(error.response?.data?.message || "No se pudo eliminar la ruta.")
         } finally {
             setLoading(false);
         }
@@ -45,8 +48,8 @@ const DeleteRuta = ({ id, onRutaEliminada }) => {
             >
                 {loading ? "Eliminando..." : "Eliminar"}
             </button>
-
-            {error && <p className="error">{error}</p>}
+{/* 
+            {error && <p className="error">{error}</p>} */}
         </div>
     );
 };

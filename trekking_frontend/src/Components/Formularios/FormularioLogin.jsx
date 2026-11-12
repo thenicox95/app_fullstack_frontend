@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router";
 import { setUsuario, actualizarUsuario } from "../../store/slices/authSlice";
 import { axiosConfig } from "../../utils/axiosConfig";
+import toast from 'react-hot-toast';
 
 const FormularioLogin = () => {
 
@@ -28,7 +29,7 @@ const FormularioLogin = () => {
 
     //Le hacemos destructuring al array que nos devuelve useState y ponemos como valor por defecto false.
     const [showPassword, setShowPassword] = useState(false)
-    const [errorLogin, setErrorLogin] = useState(null)
+    // const [errorLogin, setErrorLogin] = useState(null)
     const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
@@ -36,58 +37,58 @@ const FormularioLogin = () => {
 
     //Definimos la funcion que va a utilizar el boton de REGISTRO.
     const onSubmit = async (data) => {
-        
+
         setLoading(true);
-        setErrorLogin(null); //Por mensajes anteriores.
+        // setErrorLogin(null); //Por mensajes anteriores.
 
         try {
-    // 1. Login: obtenemos el token
+            // 1. Login: obtenemos el token
 
-    //Esta magia la tengo que hacer porque mi token no devuelve nombre, y quiero que el nombre aparezca en la pagina.
-    //Entonces como yo tengo una ruta que me devuelve la info, la utilizo para hacer el setUsuario.
-    const response = await axiosConfig.post("/v1/auth/login", data);
+            //Esta magia la tengo que hacer porque mi token no devuelve nombre, y quiero que el nombre aparezca en la pagina.
+            //Entonces como yo tengo una ruta que me devuelve la info, la utilizo para hacer el setUsuario.
+            const response = await axiosConfig.post("/v1/auth/login", data);
 
-    const { token } = response.data;
+            const { token } = response.data;
 
-    // 2. Configuramos la autorización
-    const config = {
-        headers: {
-            Authorization: token
+            // 2. Configuramos la autorización
+            const config = {
+                headers: {
+                    Authorization: token
+                }
+            };
+
+            // 3. Obtenemos los datos completos del usuario
+            const responseUser = await axiosConfig.get("/v1/users/me", config);
+
+            // 4. Guardamos usuario completo y token en Redux
+            dispatch(setUsuario({
+                user: responseUser.data,
+                token
+            }));
+
+            reset();
+            navigate("/dashboard");
+            toast.success("Usuario logeado exitosamente.")
+
+        } catch (error) {
+            // const mensajeError = error.response?.data?.message || "Ocurrió un error al iniciar sesión.";
+            // setErrorLogin(mensajeError);
+            toast.error(error.response?.data?.message || "Ocurrió un error al iniciar sesión.")
+        } finally {
+            setLoading(false);
         }
-    };
-
-    // 3. Obtenemos los datos completos del usuario
-    const responseUser = await axiosConfig.get("/v1/users/me", config);
-
-    // 4. Guardamos usuario completo y token en Redux
-    dispatch(setUsuario({
-        user: responseUser.data,
-        token
-    }));
-
-    reset();
-    navigate("/dashboard");
-
-    } catch (error) {
-    const mensajeError = error.response?.data?.message || "Ocurrió un error al iniciar sesión.";
-    setErrorLogin(mensajeError);
-    console.log("Error completo:", error);
-    } finally {
-    setLoading(false);
-    }
     }
 
     return (
         <div className="page">
             <div className="container">
                 <h1 className="title">Login</h1>
-                {/* Mostrar mensaje si las credenciales no coinciden */}
+                {/* Mostrar mensaje si las credenciales no coinciden
                 {errorLogin && (
-                <p className="error">
-                    {errorLogin}
-                </p>
-                )}
-
+                    <p className="error">
+                        {errorLogin}
+                    </p>
+                )} */}
                 <div className="inputGroup">
                     <label className="label">Email:</label>
                     <Controller
@@ -132,7 +133,7 @@ const FormularioLogin = () => {
                     </div>
                     {errors.password && <p className='error'>{errors.password.message}</p>}
                 </div>
-               
+
                 <div className="buttonContainer">
                     <button
                         type="button"
@@ -140,7 +141,7 @@ const FormularioLogin = () => {
                         //Hacemos que la funcion onClick del boton sea la funcion handleSubmit que nos devuelve useForm, y le pasamos como parametro la funcion onSubmit que definimos arriba. Esto hace que cuando el usuario haga click en el boton, se ejecute la funcion onSubmit y se envie el formulario.
                         onClick={handleSubmit(onSubmit)}
                         //Basicamente si el formulario no cumple con las reglas establecidas en el schema, no va a permitir que el usuario haga click en el boton de REGISTRO. Esto es lo que hace la propiedad isValid que nos devuelve useForm.
-                        disabled={!isValid || loading}> 
+                        disabled={!isValid || loading}>
                         {loading ? "Iniciando sesión..." : "Iniciar sesión"}
                     </button>
                 </div>

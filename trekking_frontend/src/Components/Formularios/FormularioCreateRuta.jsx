@@ -7,6 +7,7 @@ import createRutaSchema from "./Validations/createRutaSchema";
 import { axiosConfig } from "../../utils/axiosConfig";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import toast from 'react-hot-toast';
 
 const FormularioCrearRuta = () => {
 
@@ -33,7 +34,7 @@ const FormularioCrearRuta = () => {
     });
 
     const [loading, setLoading] = useState(false);
-    const [errorCrearRuta, setErrorCrearRuta] = useState(null);
+    // const [errorCrearRuta, setErrorCrearRuta] = useState(null);
     const [categorias, setCategorias] = useState([]);
     const [errorCategorias, setErrorCategorias] = useState(null);
 
@@ -84,7 +85,7 @@ const FormularioCrearRuta = () => {
     const onSubmit = async (data) => {
 
         setLoading(true);
-        setErrorCrearRuta(null);
+        // setErrorCrearRuta(null);
 
         try {
 
@@ -113,16 +114,13 @@ const FormularioCrearRuta = () => {
 
             reset();
             navigate("/dashboard");
+            toast.success("Nueva ruta creada con éxito.")
 
         } catch (error) {
-            console.log("ERROR COMPLETO:", error);
-            console.log("STATUS:", error.response?.status);
-            console.log("DATA:", error.response?.data);
-            console.log("MESSAGE:", error.response?.data?.message);
-
-            setErrorCrearRuta(
-                error.response?.data?.message || "No se pudo crear la ruta."
-            );
+            toast.error(error.response?.data?.message || "No se pudo crear la ruta.")
+            // setErrorCrearRuta(
+            //     error.response?.data?.message || "No se pudo crear la ruta."
+            // );
         } finally {
             setLoading(false);
         }
@@ -133,10 +131,10 @@ const FormularioCrearRuta = () => {
             <div className="container">
 
                 <h1 className="title">Crear nueva ruta</h1>
-
+{/* 
                 {errorCrearRuta && (
                     <p className="error">{errorCrearRuta}</p>
-                )}
+                )} */}
 
                 {/* Nombre */}
                 <div className="inputGroup">

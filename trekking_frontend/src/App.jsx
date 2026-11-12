@@ -3,6 +3,7 @@ import './App.css';
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from 'react-router';
+import { Toaster } from 'react-hot-toast';
 import FormularioRegistro from './Components/Formularios/FormularioRegistro';
 import FormularioCreateRuta from "./Components/Formularios/FormularioCreateRuta"
 import Header from "./Components/Header";
@@ -31,6 +32,7 @@ const App = () => {
         </Route>
       </Routes>
     </BrowserRouter>
+    <Toaster position='bottom-right'/>
     </Provider>
   )
 };

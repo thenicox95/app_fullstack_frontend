@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { axiosConfig } from "../utils/axiosConfig";
+import toast from 'react-hot-toast';
 
 const UpdateRuta = ({ id, nombre, onRutaActualizada }) => {
 
@@ -9,13 +10,13 @@ const UpdateRuta = ({ id, nombre, onRutaActualizada }) => {
 
     const [nuevoNombre, setNuevoNombre] = useState(nombre);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
+    // const [error, setError] = useState("");
 
     const actualizarRuta = async () => {
 
         try {
             setLoading(true);
-            setError("");
+            // setError("");
 
             await axiosConfig.put(`/v1/rutas/${id}`, {
                 nombre: nuevoNombre
@@ -25,11 +26,13 @@ const UpdateRuta = ({ id, nombre, onRutaActualizada }) => {
                 }
             });
             onRutaActualizada(id, nuevoNombre);
+            toast.success(`Ruta actualizada con exito como: ${nuevoNombre}`)
 
         } catch (error) {
-            setError(
-                error.response?.data?.message || "No se pudo actualizar la ruta."
-            );
+            // setError(
+            //     error.response?.data?.message || "No se pudo actualizar la ruta."
+            // );
+            toast.error(error.response?.data?.message || "No se pudo actualizar la ruta.")
         } finally {
             setLoading(false);
         }
@@ -51,7 +54,7 @@ const UpdateRuta = ({ id, nombre, onRutaActualizada }) => {
                 {loading ? "Actualizando..." : "Actualizar"}
             </button>
 
-            {error && <p className="error">{error}</p>}
+            {/* {error && <p className="error">{error}</p>} */}
         </div>
     );
 };

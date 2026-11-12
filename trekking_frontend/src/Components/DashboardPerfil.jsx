@@ -1,11 +1,12 @@
 import "./ComponentsCss/DashboardPerfil.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ListadoRutas from "./ListadoRutas";
 import FotoPerfil from "./FotoPerfil";
 import { axiosConfig } from "../utils/axiosConfig";
 import { actualizarUsuario } from "../store/slices/authSlice";
 import GraficaProgreso from "./GraficaProgreso";
+import toast from 'react-hot-toast';
 
 const Perfil = () => {
 
@@ -15,18 +16,18 @@ const Perfil = () => {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   //El estado de las rutas actual para poder crear la grafica.
   const [rutas, setRutas] = useState([]);
 
-  const email = user?.email || "No autenticado";
+  // const email = user?.email || "No autenticado";
   //Calculamos el porcentaje.
   const porcentaje = Math.min((rutas.length / 4) * 100, 100);
 
   const cambiarAPremium = async () => {
     try {
       setLoading(true);
-      setError(null);
+      // setError(null);
 
       const config = {
         headers: {
@@ -41,14 +42,15 @@ const Perfil = () => {
       );
 
       dispatch(actualizarUsuario(response.data.user));
+      toast.success("Bienvenido a la comunidad PREMIUM.")
 
     } catch (error) {
-      console.error("Error al cambiar el plan:", error);
+      toast.error(error.response?.data?.message ||"No se pudo actualizar el plan.")
 
-      setError(
-        error.response?.data?.message ||
-        "No se pudo actualizar el plan."
-      );
+      // setError(
+      //   error.response?.data?.message ||
+      //   "No se pudo actualizar el plan."
+      // );
 
     } finally {
       setLoading(false);
@@ -81,10 +83,10 @@ const Perfil = () => {
               {loading ? "Actualizando..." : "Pasar a Premium"}
             </button>
           )}
-
+{/* 
           {error && (
             <p className="error">{error}</p>
-          )}
+          )} */}
 
         </div>
 

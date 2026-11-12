@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosConfig } from "../utils/axiosConfig";
 import { actualizarUsuario } from "../store/slices/authSlice";
+import toast from 'react-hot-toast';
 import "./ComponentsCss/FotoPerfil.css";
 
 const FotoPerfil = () => {
@@ -13,7 +14,7 @@ const FotoPerfil = () => {
     const inputFoto = useRef(null);
 
     const [subiendoFoto, setSubiendoFoto] = useState(false);
-    const [errorFoto, setErrorFoto] = useState(null);
+    // const [errorFoto, setErrorFoto] = useState(null);
 
     const subirFoto = async (event) => {
         const archivo = event.target.files[0];
@@ -22,7 +23,7 @@ const FotoPerfil = () => {
 
         try {
             setSubiendoFoto(true);
-            setErrorFoto(null);
+            // setErrorFoto(null);
 
             const formData = new FormData();
             formData.append("imagen", archivo);
@@ -44,13 +45,14 @@ const FotoPerfil = () => {
             //La imagen se borra despues del logout porque borramos el cache y steamos el estado del user a inicial. 
             //El login no trae la imagen por defectos en el backend.
             dispatch(actualizarUsuario(response.data.user));
+            toast.success("Foto de perfil actualizada con éxito.")
 
         } catch (error) {
-
-            setErrorFoto(
-                error.response?.data?.message ||
-                "No se pudo subir la imagen."
-            );
+            toast.error(error.response?.data?.message ||"No se pudo subir la imagen.")
+            // setErrorFoto(
+            //     error.response?.data?.message ||
+            //     "No se pudo subir la imagen."
+            // );
         } finally {
             setSubiendoFoto(false);
             event.target.value = "";
@@ -83,7 +85,7 @@ const FotoPerfil = () => {
                 {subiendoFoto ? "Subiendo..." : "Cambiar foto"}
             </button>
 
-            {errorFoto && <p className="error">{errorFoto}</p>}
+            {/* {errorFoto && <p className="error">{errorFoto}</p>} */}
 
         </div>
     );
