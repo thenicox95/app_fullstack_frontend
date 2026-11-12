@@ -1,0 +1,23 @@
+.grafica-progreso {
+  width: 160px;
+  flex-shrink: 0;
+  margin-left: auto;
+  text-align: center;
+}
+
+.grafica-progreso h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.grafica-progreso canvas {
+  max-width: 140px;
+  max-height: 140px;
+  margin: 0 auto;
+}
+
+.grafica-progreso p {
+  font-size: 14px;
+  margin-top: 8px;
+  font-weight: 600;
+}

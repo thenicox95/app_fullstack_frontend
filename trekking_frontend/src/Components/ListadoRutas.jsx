@@ -7,7 +7,7 @@ import DeleteRuta from "./DeleteRuta";
 import FormularioUpdateRuta from "./Formularios/FormularioUpdateRuta";
 import { axiosConfig } from "../utils/axiosConfig";
 
-const ListadoRutas = ({ soloUsuario = false }) => {
+const ListadoRutas = ({ soloUsuario = false, onRutasCargadas }) => {
   const [rutas, setRutas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,7 +32,13 @@ const ListadoRutas = ({ soloUsuario = false }) => {
           response = await axiosConfig.get(`/v1/rutas?page=${page}&limit=6`);
         }
 
-        setRutas(response.data.data ?? response.data);
+        const rutasRecibidas = response.data.data ?? response.data;
+
+        setRutas(rutasRecibidas);
+
+        if (onRutasCargadas) {
+          onRutasCargadas(rutasRecibidas);
+        }
 
       } catch (error) {
         console.error("Error al obtener las rutas:", error);
@@ -110,14 +116,20 @@ const ListadoRutas = ({ soloUsuario = false }) => {
                           Modificar
                         </button>
 
+                        {/* Aca basicamente luego de  borrar la ruta actualizamos el componente de listado, pero para que se actualice la grafica, es necesario
+                        actualizar el componente del listado con la funcion que viene del componente padre, en este caso, onRutasCargadas. */}
                         <DeleteRuta
                           id={item._id}
                           onRutaEliminada={(id) => {
-                            setRutas((rutasActuales) =>
-                              rutasActuales.filter(
-                                (ruta) => ruta._id !== id
-                              )
+                            const nuevasRutas = rutas.filter(
+                              (ruta) => ruta._id !== id
                             );
+
+                            setRutas(nuevasRutas);
+
+                            if (onRutasCargadas) {
+                              onRutasCargadas(nuevasRutas);
+                            }
                           }}
                         />
 

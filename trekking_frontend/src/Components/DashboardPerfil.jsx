@@ -1,10 +1,11 @@
 import "./ComponentsCss/DashboardPerfil.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ListadoRutas from "./ListadoRutas";
 import FotoPerfil from "./FotoPerfil";
 import { axiosConfig } from "../utils/axiosConfig";
 import { actualizarUsuario } from "../store/slices/authSlice";
+import GraficaProgreso from "./GraficaProgreso";
 
 const Perfil = () => {
 
@@ -15,8 +16,12 @@ const Perfil = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  //El estado de las rutas actual para poder crear la grafica.
+  const [rutas, setRutas] = useState([]);
 
   const email = user?.email || "No autenticado";
+  //Calculamos el porcentaje.
+  const porcentaje = Math.min((rutas.length / 4) * 100, 100);
 
   const cambiarAPremium = async () => {
     try {
@@ -77,14 +82,25 @@ const Perfil = () => {
             </button>
           )}
 
-          {error && <p className="error">{error}</p>}
+          {error && (
+            <p className="error">{error}</p>
+          )}
 
         </div>
+
+        {user?.plan === "PLUS" && (
+          <GraficaProgreso porcentaje={porcentaje} />
+        )}
 
       </section>
 
       <main className="perfil-contenido">
-        <ListadoRutas soloUsuario={true} />
+
+        <ListadoRutas
+          soloUsuario={true}
+          onRutasCargadas={setRutas}
+        />
+
       </main>
 
     </div>
