@@ -1,0 +1,113 @@
+/* ==========================================
+   PÁGINA DE PERFIL (Perfil.jsx)
+   ========================================== */
+.perfil-container {
+  min-height: calc(100vh - 75px);
+  background-color: #f4f7f2;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/* TARJETA DE INFORMACIÓN DE USUARIO */
+.perfil-card {
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #d5ddd5;
+  padding: 25px 35px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 30px;
+}
+
+.perfil-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.perfil-nombre {
+  margin: 0;
+  color: #315c40;
+  font-size: 24px;
+  font-weight: 700;
+  white-space: normal;
+}
+
+/* BADGE DE ROL (Verde temático) */
+.badge-rol {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.perfil-email {
+  margin: 4px 0 0;
+  color: #647568;
+  font-size: 14px;
+}
+
+.perfil-email strong {
+  color: #26352a;
+}
+
+/* CONTENIDO Y LISTADO DE RUTAS EN PERFIL */
+.perfil-contenido {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Ajuste para que el listado dentro del perfil no vuelva a meter padding extra */
+.perfil-contenido .listado-rutas-container {
+  padding-top: 0;
+}
+
+/* BOTÓN PASAR A PREMIUM */
+.btn-premium {
+  margin-top: 10px;
+  padding: 11px 22px;
+  background: linear-gradient(135deg, #315c40, #47865b);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(49, 92, 64, 0.2);
+  transition: all 0.25s ease;
+}
+
+.btn-premium:hover {
+  background: linear-gradient(135deg, #264a33, #386e49);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(49, 92, 64, 0.3);
+}
+
+.btn-premium:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(49, 92, 64, 0.2);
+}
+
+.btn-premium:disabled {
+  background: #a5b5a8;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

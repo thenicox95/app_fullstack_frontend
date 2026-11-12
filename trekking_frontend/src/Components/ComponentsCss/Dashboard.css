@@ -1,0 +1,49 @@
+/* ==========================================
+   DASHBOARD PRINCIPAL (Dashboard.jsx)
+   ========================================== */
+
+.dashboard-container {
+  min-height: calc(100vh - 75px);
+  background-color: #f4f7f2;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ÁREA DE CONTENIDO */
+.dashboard-contenido {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* CONTENEDOR DE ACCIONES */
+.dashboard-acciones {
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  padding: 25px 20px 0;
+}
+
+/* BOTÓN CREAR RUTA */
+.btn-crear-ruta {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #315c40, #47865b);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(49, 92, 64, 0.2);
+}
+
+.btn-crear-ruta:hover {
+  background: linear-gradient(135deg, #264a33, #386e49);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(49, 92, 64, 0.3);
+}

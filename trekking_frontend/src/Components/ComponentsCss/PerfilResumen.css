@@ -1,0 +1,55 @@
+/*
+.perfil-resumen-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #315c40;
+}
+
+.usuario-nombre {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}*/
+
+.perfil-resumen-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.perfil-resumen-box:hover {
+  background-color: #f4f7f2;
+}
+
+/* Avatar de usuario */
+.perfil-imagen {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #477b54;
+}
+
+/* Nombre del usuario */
+.usuario-nombre {
+  color: #26352a;
+  font-size: 14px;
+  font-weight: 600;
+}

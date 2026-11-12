@@ -1,0 +1,98 @@
+/* Contenedor principal de la vista de detalle */
+.detalle-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Botón de navegación para regresar */
+.btn-volver {
+  align-self: flex-start;
+  background: transparent;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-volver:hover {
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+/* Título principal de la ruta */
+.detalle-container h2 {
+  color: #1b5e20;
+  font-size: 1.8rem;
+  margin: 0;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 12px;
+}
+
+/* Tarjeta de información del Clima */
+.clima-card {
+  background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+  border-left: 5px solid #4caf50;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.clima-card h3 {
+  color: #2e7d32;
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+
+.clima-card p {
+  margin: 6px 0;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+/* Tarjeta de la descripción/recomendación generada por IA */
+.ia-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.ia-card h3 {
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Estilo del texto de la IA */
+.ia-texto {
+  color: #475569;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0;
+  text-align: justify;
+}
+
+/* Mensaje de error */
+.detalle-container .error {
+  color: #d32f2f;
+  background-color: #ffebee;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #ffcdd2;
+  text-align: center;
+}
