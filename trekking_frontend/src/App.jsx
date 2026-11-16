@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 import { Toaster } from 'react-hot-toast';
 import FormularioRegistro from './Components/Formularios/FormularioRegistro';
 import FormularioCreateRuta from "./Components/Formularios/FormularioCreateRuta"
+import ListadoCategorias from "./Components/ListadoCategorias"
 import Header from "./Components/Header";
 import Inicio from './Components/Inicio';
 import RutaPublica from './Components/RutaPublica';
@@ -29,6 +30,8 @@ const App = () => {
           <Route path="/profile" element={<DashboardPerfil />} />
           <Route path="/rutas/:id" element={<DetalleRuta />} />
           <Route path="/crear-ruta" element={<FormularioCreateRuta />} />
+          {/* Aca pide autenticacion desde el front pero el back es una ruta publica. */}
+          <Route path="/categorias" element={<ListadoCategorias />} />
         </Route>
       </Routes>
     </BrowserRouter>

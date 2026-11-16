@@ -1,0 +1,82 @@
+
+/* ==========================================
+   LISTADO DE CATEGORÍAS
+   ========================================== */
+
+.listado-categorias-container {
+  width: 100%;
+  min-height: calc(100vh - 75px);
+  background-color: #f4f7f2;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Título de la sección */
+.listado-categorias-container h2 {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  color: #315c40;
+  font-size: 24px;
+  font-weight: 700;
+  border-bottom: 2px solid #e0ebe1;
+  padding-bottom: 10px;
+}
+
+/* GRILLA DE TARJETAS */
+.categorias-grid {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+/* TARJETAS */
+.categoria-card {
+  background-color: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.categoria-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.categoria-card h3 {
+  margin: 0;
+  color: #315c40;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.categoria-card button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.categoria-card button:hover {
+    background-color: #bb2d3b;
+    transform: translateY(-2px);
+}
+
+.categoria-card button:active {
+    transform: translateY(0);
+}
+
+.categoria-card button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+    transform: none;
+}

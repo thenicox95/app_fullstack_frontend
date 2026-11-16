@@ -69,7 +69,7 @@ const FormularioCrearRuta = () => {
 
         const obtenerCategorias = async () => {
             try {
-                const response = await axiosConfig.get("/v1/categorias");
+                const response = await axiosConfig.get("/v1/categorias/all");
                 setCategorias(response.data.data ?? response.data);
             } catch (error) {
                 console.error("Error al obtener categorías:", error);

@@ -2,7 +2,7 @@ import "./ComponentsCss/RutaCard.css";
 import { useNavigate } from "react-router";
 
 //Cambiar los props segun necesidad.
-const Ruta = ({ id, nombre, ubicacion, distancia, dificultad }) => {
+const Ruta = ({ id, nombre, ubicacion, distancia, dificultad, categoria }) => {
 
   const navigate = useNavigate();
 
@@ -15,6 +15,7 @@ const Ruta = ({ id, nombre, ubicacion, distancia, dificultad }) => {
         </span>
       </div>
       <div className="ruta-body">
+        <p><strong>Categoria:</strong> {categoria}</p>
         <p><strong>Ubicación:</strong> {ubicacion}</p>
         <p><strong>Distancia:</strong> {distancia} km</p>
       </div>

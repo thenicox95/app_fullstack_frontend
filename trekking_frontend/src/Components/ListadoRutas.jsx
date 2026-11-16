@@ -13,6 +13,7 @@ const ListadoRutas = ({ soloUsuario = false, onRutasCargadas }) => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [rutaSeleccionada, setRutaSeleccionada] = useState(null);
+  const categorias = useSelector((state) => state.categorias.categorias);
 
   const tokenRedux = useSelector((state) => state.auth.token);
   const token = tokenRedux || localStorage.getItem("token");
@@ -23,6 +24,7 @@ const ListadoRutas = ({ soloUsuario = false, onRutasCargadas }) => {
       setError(null);
 
       try {
+
         let response;
 
         if (soloUsuario) {
@@ -70,6 +72,9 @@ const ListadoRutas = ({ soloUsuario = false, onRutasCargadas }) => {
     setRutaSeleccionada(null);
   };
 
+  console.log("Rutas recibidas:", rutas);
+  console.log("Categorías recibidas:", categorias);
+
   return (
     <section className="listado-rutas-container">
 
@@ -82,7 +87,7 @@ const ListadoRutas = ({ soloUsuario = false, onRutasCargadas }) => {
         />
       ) : (
         <>
-          <h2>Rutas disponibles:</h2>
+          {soloUsuario === true ? <h2>Rutas creadas:</h2> : <h2>Rutas disponibles:</h2>}
 
           {loading && <p>Cargando rutas...</p>}
 
@@ -95,49 +100,60 @@ const ListadoRutas = ({ soloUsuario = false, onRutasCargadas }) => {
           {!loading && !error && rutas.length > 0 && (
             <>
               <div className="rutas-grid">
-                {rutas.map((item) => (
-                  <div key={item._id} className="ruta-wrapper">
 
-                    <Ruta
-                      id={item._id}
-                      nombre={item.nombre}
-                      ubicacion={`${item.ubicacion?.pais || ""}, ${item.ubicacion?.ciudad || ""}, ${item.ubicacion?.departamento || ""}`}
-                      distancia={item.distancia}
-                      dificultad={item.dificultad}
-                    />
+                {rutas.map((item) => {
 
-                    {soloUsuario && (
-                      <div className="ruta-acciones">
+                  const categoriaEncontrada = categorias.find(
+                    (cat) => cat._id === item.categoria
+                  );
 
-                        <button
-                          type="button"
-                          onClick={() => setRutaSeleccionada(item)}
-                        >
-                          Modificar
-                        </button>
+                  console.log("Categoría encontrada:", categoriaEncontrada);
 
-                        {/* Aca basicamente luego de  borrar la ruta actualizamos el componente de listado, pero para que se actualice la grafica, es necesario
-                        actualizar el componente del listado con la funcion que viene del componente padre, en este caso, onRutasCargadas. */}
-                        <DeleteRuta
-                          id={item._id}
-                          onRutaEliminada={(id) => {
-                            const nuevasRutas = rutas.filter(
-                              (ruta) => ruta._id !== id
-                            );
+                  return (
+                    <div key={item._id} className="ruta-wrapper">
 
-                            setRutas(nuevasRutas);
+                      <Ruta
+                        id={item._id}
+                        nombre={item.nombre}
+                        ubicacion={`${item.ubicacion?.pais || ""}, ${item.ubicacion?.ciudad || ""}, ${item.ubicacion?.departamento || ""}`}
+                        distancia={item.distancia}
+                        dificultad={item.dificultad}
+                        categoria={categoriaEncontrada?.nombre}
+                      />
 
-                            if (onRutasCargadas) {
-                              onRutasCargadas(nuevasRutas);
-                            }
-                          }}
-                        />
+                      {soloUsuario && (
+                        <div className="ruta-acciones">
 
-                      </div>
-                    )}
+                          <button
+                            type="button"
+                            onClick={() => setRutaSeleccionada(item)}
+                          >
+                            Modificar
+                          </button>
 
-                  </div>
-                ))}
+                          {/* Actualizamos el listado y la gráfica después de eliminar una ruta. */}
+                          <DeleteRuta
+                            id={item._id}
+                            onRutaEliminada={(id) => {
+                              const nuevasRutas = rutas.filter(
+                                (ruta) => ruta._id !== id
+                              );
+
+                              setRutas(nuevasRutas);
+
+                              if (onRutasCargadas) {
+                                onRutasCargadas(nuevasRutas);
+                              }
+                            }}
+                          />
+
+                        </div>
+                      )}
+
+                    </div>
+                  );
+                })}
+
               </div>
 
               {!soloUsuario && (

@@ -12,6 +12,7 @@ const DeleteRuta = ({ id, onRutaEliminada }) => {
 
     const eliminarRuta = async () => {
 
+        //Esto es una especie de modal pero en la ventana del navegador.
         const confirmar = window.confirm("¿Estás seguro de que querés eliminar esta ruta?");
 
         if (!confirmar) return;

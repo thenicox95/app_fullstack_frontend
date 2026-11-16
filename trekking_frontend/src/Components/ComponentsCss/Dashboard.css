@@ -26,6 +26,7 @@
   display: flex;
   justify-content: flex-end;
   padding: 25px 20px 0;
+  gap: 15px;
 }
 
 /* BOTÓN CREAR RUTA */

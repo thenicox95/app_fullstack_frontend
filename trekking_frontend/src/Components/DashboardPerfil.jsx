@@ -7,6 +7,7 @@ import { axiosConfig } from "../utils/axiosConfig";
 import { actualizarUsuario } from "../store/slices/authSlice";
 import GraficaProgreso from "./GraficaProgreso";
 import toast from 'react-hot-toast';
+import GraficaRutasPorCategoria from "./GraficaRutasPorCategoria";
 
 const Perfil = () => {
 
@@ -45,7 +46,7 @@ const Perfil = () => {
       toast.success("Bienvenido a la comunidad PREMIUM.")
 
     } catch (error) {
-      toast.error(error.response?.data?.message ||"No se pudo actualizar el plan.")
+      toast.error(error.response?.data?.message || "No se pudo actualizar el plan.")
 
       // setError(
       //   error.response?.data?.message ||
@@ -83,7 +84,7 @@ const Perfil = () => {
               {loading ? "Actualizando..." : "Pasar a Premium"}
             </button>
           )}
-{/* 
+          {/* 
           {error && (
             <p className="error">{error}</p>
           )} */}
@@ -98,10 +99,14 @@ const Perfil = () => {
 
       <main className="perfil-contenido">
 
+        
         <ListadoRutas
           soloUsuario={true}
           onRutasCargadas={setRutas}
         />
+
+        <GraficaRutasPorCategoria rutas={rutas} />
+
 
       </main>
 

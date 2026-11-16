@@ -6,7 +6,7 @@ import loginSchema from "./Validations/loginSchema";
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router";
-import { setUsuario, actualizarUsuario } from "../../store/slices/authSlice";
+import { setUsuario } from "../../store/slices/authSlice";
 import { axiosConfig } from "../../utils/axiosConfig";
 import toast from 'react-hot-toast';
 
@@ -42,27 +42,15 @@ const FormularioLogin = () => {
         // setErrorLogin(null); //Por mensajes anteriores.
 
         try {
-            // 1. Login: obtenemos el token
+            // 1. Login: obtenemos el token y el usuario que ahora el backend lo entrega completo.
 
-            //Esta magia la tengo que hacer porque mi token no devuelve nombre, y quiero que el nombre aparezca en la pagina.
-            //Entonces como yo tengo una ruta que me devuelve la info, la utilizo para hacer el setUsuario.
             const response = await axiosConfig.post("/v1/auth/login", data);
 
-            const { token } = response.data;
+            const { token, user } = response.data;
 
-            // 2. Configuramos la autorización
-            const config = {
-                headers: {
-                    Authorization: token
-                }
-            };
-
-            // 3. Obtenemos los datos completos del usuario
-            const responseUser = await axiosConfig.get("/v1/users/me", config);
-
-            // 4. Guardamos usuario completo y token en Redux
+            // 2. Guardamos usuario completo y token en Redux
             dispatch(setUsuario({
-                user: responseUser.data,
+                user,
                 token
             }));
 

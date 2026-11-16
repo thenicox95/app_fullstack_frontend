@@ -1,0 +1,21 @@
+.grafica-categorias-container {
+    width: 100%;
+    min-height: 550px;
+    padding: 30px;
+    margin: 20px auto;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 12px;
+}
+
+.grafica-categorias-container h3 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.grafica-categorias-chart {
+    width: 100%;
+    height: 450px;
+    position: relative;
+}
